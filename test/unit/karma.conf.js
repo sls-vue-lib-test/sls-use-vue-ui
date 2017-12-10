@@ -3,24 +3,7 @@
 // we are also using it with karma-webpack
 //   https://github.com/webpack/karma-webpack
 
-var webpackConfig = require('./cooking.conf.js');
-var webpack = require('webpack');
-var merge = require('webpack-merge');
-var path = require('path');
-var projectRoot = path.resolve(__dirname, '../');
-
-// no need for app entry and plugin during tests
-delete webpackConfig.entry;
-delete webpackConfig.plugins;
-
-webpackConfig = merge(webpackConfig, {
-  devtool: '#inline-source-map',
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': JSON.stringify('testing')
-    })
-  ]
-});
+var webpackConfig = require('../../build/webpack.test.conf')
 
 module.exports = function (config) {
   config.set({
@@ -28,12 +11,12 @@ module.exports = function (config) {
     // 1. install corresponding karma launcher
     //    http://karma-runner.github.io/0.13/config/browsers.html
     // 2. add it to the `browsers` array below.
-    browsers: ['Chrome'/* ,'PhantomJS'*/],
-    frameworks: ['mocha', 'sinon-chai'],
+    browsers: ['PhantomJS'],
+    frameworks: ['mocha', 'sinon-chai', 'phantomjs-shim'],
     reporters: ['spec', 'coverage'],
-    files: ['./test/index.js'],
+    files: ['./index.js'],
     preprocessors: {
-      './test/index.js': ['webpack', 'sourcemap']
+      './index.js': ['webpack', 'sourcemap']
     },
     webpack: webpackConfig,
     webpackMiddleware: {
@@ -46,6 +29,5 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     }
-  });
-};
-
+  })
+}

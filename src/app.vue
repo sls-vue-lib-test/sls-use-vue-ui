@@ -1,12 +1,24 @@
 <template>
-  <div>
-    <h1>sls-use-vue-ui</h1>
-    <p>使用测试的vueui</p>
+  <div id="app">
+    <hello></hello>
+    <word></word>
+    <router-view/>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'app'
-  };
+export default {
+  name: 'app'
+}
 </script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
